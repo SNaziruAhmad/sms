@@ -1,0 +1,27 @@
+<?php
+$username = "SMS CLONE USERNAME";
+$password = "SMS CLONE PASSWORD";
+$sender = urlencode("The Genius");
+$recepient = "090......";
+$message = "We're running some test";
+$message = urlencode($message);
+
+$url = "https://smsclone.com/api/sms/sendsms?username=".$username."&password=".$password."&sender=".$sender."&recipient=".$recepient."&message=".$message;
+
+$curl = curl_init($url);
+curl_setopt($curl, CURLOPT_URL, $url);
+curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+
+$resp = curl_exec($curl);
+curl_close($curl);
+//echo $resp;
+
+$responseDetails = explode("|",$resp);
+if(is_array($responseDetails)){
+	//print_r($responseDetails);
+	if($responseDetails[3] == "SENT"){
+		echo "Message Sent Successfully";
+	}
+}
+
+?>
